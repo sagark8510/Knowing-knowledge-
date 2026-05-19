@@ -4,22 +4,206 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Knowing Knowledge Digital Library</title>
-    
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
   </head>
-  <body class="bg-slate-900">
-    
-    <div id="root"></div>
+  <body class="bg-slate-900 text-slate-100 flex flex-col min-h-screen font-sans">
 
-    <script type="text/babel" data-type="module">
-      import App from '/src/App.tsx';
-      const root = ReactDOM.createRoot(document.getElementById('root'));
-      root.render(React.createElement(App));
+    <header class="bg-gradient-to-r from-blue-700 to-indigo-800 py-12 px-6 text-center shadow-lg relative overflow-hidden">
+      <div class="relative z-10 max-w-4xl mx-auto">
+        <span class="bg-blue-500/30 text-blue-200 text-xs px-4 py-1.5 rounded-full font-bold uppercase tracking-wider">
+          Knowing Knowledge Digital Library
+        </span>
+        <h1 class="text-4xl md:text-5xl font-black mt-4 tracking-tight drop-shadow-md">
+          Complete Educational Library
+        </h1>
+        <p class="text-blue-100/80 mt-3 text-sm md:text-base max-w-xl mx-auto font-light">
+          Class 9th se lekar Post Graduation (PG) tak ke saare Guess Papers, Books aur PYQs ek hi jagah par download karein.
+        </p>
+      </div>
+    </header>
+
+    <main class="flex-grow max-w-6xl w-full mx-auto px-4 py-8">
+      
+      <div class="flex flex-wrap gap-2 justify-center mb-10 bg-slate-800/50 p-2 rounded-2xl border border-slate-700/50" id="class-tabs">
+        </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        
+        <div class="md:col-span-1 bg-slate-800/40 border border-slate-700/50 rounded-2xl p-4 h-fit">
+          <h3 class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4 px-2">
+            Available Subjects
+          </h3>
+          <div class="flex flex-col gap-1.5" id="subject-list">
+            </div>
+        </div>
+
+        <div class="md:col-span-3">
+          <div class="border-b border-slate-800 pb-4 mb-6">
+            <h2 class="text-xl md:text-2xl font-bold text-white flex items-center gap-2" id="current-subject-title">
+              Select a Subject
+            </h2>
+            <p class="text-xs text-slate-400 mt-1">Latest syllabus aur resources niche se direct download karein.</p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="resource-grid">
+            </div>
+        </div>
+
+      </div>
+    </main>
+
+    <footer class="bg-slate-950 border-t border-slate-800 py-8 px-6 mt-12 text-center text-slate-500 text-xs">
+      <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 mb-4">
+        <div class="text-left">
+          <p class="font-bold text-slate-400 text-sm">Knowing Knowledge Library</p>
+          <p class="mt-0.5 text-slate-500">Quality education resources for every student.</p>
+        </div>
+        <div class="flex flex-wrap justify-center gap-4 text-slate-300">
+          <a href="tel:+91XXXXXXXXXX" class="flex items-center gap-1.5 hover:text-blue-400 transition-colors bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800">
+            <i data-lucide="phone" class="w-3.5 h-3.5 text-blue-500"></i> +91 XXXXXXXXXX
+          </a>
+          <a href="mailto:apnamail@gmail.com" class="flex items-center gap-1.5 hover:text-blue-400 transition-colors bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800">
+            <i data-lucide="mail" class="w-3.5 h-3.5 text-indigo-500"></i> apnamail@gmail.com
+          </a>
+        </div>
+      </div>
+      <div class="pt-4 border-t border-slate-900 text-[11px]">
+        &copy; 2026 Knowing Knowledge. All Rights Reserved.
+      </div>
+    </footer>
+
+    <script>
+      // --- APNA DATA YAHAN SE CHANGES KAREIN ---
+      const STUDY_LIBRARY = [
+        {
+          className: "Class 9",
+          subjects: [
+            {
+              name: "Science (Session 2026-2027)",
+              resources: [
+                { id: "c9-sc-ch4", title: "Chapter 4: Describing motion around us", type: "Book", pdfUrl: "/documents/class9-science-ch4.pdf", price: 0 },
+                { id: "c9-sc-ch5", title: "Chapter 5: Exploring mixture", type: "Book", pdfUrl: "/documents/class9-science-ch5.pdf", price: 0 },
+                { id: "c9-sc-ch6", title: "Chapter 6: How force affect motion", type: "Book", pdfUrl: "/documents/class9-science-ch6.pdf", price: 0 },
+                { id: "c9-sc-ch7", title: "Chapter 7: Work energy and simple machine", type: "Book", pdfUrl: "/documents/class9-science-ch7.pdf", price: 0 },
+                { id: "c9-sc-ch8", title: "Chapter 8: Journey inside the atom", type: "Book", pdfUrl: "/documents/class9-science-ch8.pdf", price: 0 },
+                { id: "c9-sc-ch9", title: "Chapter 9: Atomic foundation of atom", type: "Book", pdfUrl: "/documents/class9-science-ch9.pdf", price: 0 }
+              ]
+            },
+            {
+              name: "Mathematics",
+              resources: [
+                { id: "c9-math-pyq", title: "Class 9 Maths Previous Year Question Paper", type: "PYQ", pdfUrl: "/documents/class9-math-pyq.pdf", price: 0 }
+              ]
+            }
+          ]
+        },
+        { className: "Class 10", subjects: [] },
+        { className: "Class 11", subjects: [] },
+        { className: "Class 12", subjects: [] },
+        { className: "Graduation (UG)", subjects: [] },
+        { className: "Post Graduation (PG)", subjects: [] }
+      ];
+
+      let activeClassIndex = 0;
+      let activeSubjectIndex = 0;
+
+      // Render Class Tabs Buttons
+      function renderClassTabs() {
+        const tabsContainer = document.getElementById('class-tabs');
+        tabsContainer.innerHTML = '';
+        
+        STUDY_LIBRARY.forEach((item, index) => {
+          const btn = document.createElement('button');
+          btn.className = `px-5 py-2.5 rounded-xl text-sm font-bold tracking-wide transition-all cursor-pointer ${
+            activeClassIndex === index
+              ? 'bg-blue-600 text-white shadow-md shadow-blue-600/30'
+              : 'bg-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-800'
+          }`;
+          btn.innerText = item.className;
+          btn.onclick = () => {
+            activeClassIndex = index;
+            activeSubjectIndex = 0;
+            renderClassTabs();
+            renderSubjects();
+          };
+          tabsContainer.appendChild(btn);
+        });
+      }
+
+      // Render Subjects List sidebar
+      function renderSubjects() {
+        const subjectContainer = document.getElementById('subject-list');
+        subjectContainer.innerHTML = '';
+        
+        const currentSubjects = STUDY_LIBRARY[activeClassIndex].subjects;
+        
+        if (currentSubjects.length === 0) {
+          subjectContainer.innerHTML = '<p class="text-xs text-slate-500 italic p-2">Syllabus update ho raha hai...</p>';
+          document.getElementById('current-subject-title').innerText = 'No Materials';
+          document.getElementById('resource-grid').innerHTML = '';
+          return;
+        }
+
+        currentSubjects.forEach((sub, index) => {
+          const btn = document.createElement('button');
+          btn.className = `w-full text-left px-3 py-2.5 rounded-xl text-xs md:text-sm font-medium transition-all flex items-center gap-2 cursor-pointer ${
+            activeSubjectIndex === index
+              ? 'bg-slate-700 text-blue-400 font-bold border-l-4 border-blue-500 pl-2'
+              : 'text-slate-300 hover:bg-slate-800/60'
+          }`;
+          btn.innerHTML = `<i data-lucide="book-open" class="w-4 h-4 opacity-70"></i> <span class="truncate">${sub.name}</span>`;
+          btn.onclick = () => {
+            activeSubjectIndex = index;
+            renderSubjects();
+          };
+          subjectContainer.appendChild(btn);
+        });
+
+        // Current Subject Content Update
+        const activeSubject = currentSubjects[activeSubjectIndex];
+        document.getElementById('current-subject-title').innerText = activeSubject.name;
+        renderResources(activeSubject.resources);
+        lucide.createIcons(); // Refresh icons
+      }
+
+      // Render PDF Material Cards
+      function renderResources(resources) {
+        const grid = document.getElementById('resource-grid');
+        grid.innerHTML = '';
+
+        if (resources.length === 0) {
+          grid.innerHTML = '<div class="col-span-2 text-center text-slate-500 py-8">Is subject ke liye jaldi hi PDFs jodi jayengi.</div>';
+          return;
+        }
+
+        resources.forEach(res => {
+          const card = document.createElement('div');
+          card.className = "bg-slate-800/60 border border-slate-700/60 p-5 rounded-2xl flex flex-col justify-between shadow-sm group";
+          
+          card.innerHTML = `
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-[10px] font-extrabold px-2.5 py-1 rounded-md uppercase ${
+                  res.type === 'Book' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
+                }">${res.type}</span>
+                <span class="text-xs font-bold text-emerald-400 bg-emerald-500/5 px-2 py-0.5 rounded-full border border-emerald-500/10">${res.price === 0 ? 'FREE' : '₹' + res.price}</span>
+              </div>
+              <h4 class="text-sm md:text-base font-semibold text-slate-100">${res.title}</h4>
+            </div>
+            <div class="mt-5 pt-3 border-t border-slate-700/40 flex items-center justify-end">
+              <a href="${res.pdfUrl}" download class="inline-flex items-center gap-2 text-xs font-bold bg-slate-700 hover:bg-blue-600 text-white px-4 py-2 rounded-xl transition-all cursor-pointer">
+                <i data-lucide="download" class="w-3.5 h-3.5"></i> Download PDF
+              </a>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+      }
+
+      // First time initialization
+      renderClassTabs();
+      renderSubjects();
     </script>
-
   </body>
 </html>
