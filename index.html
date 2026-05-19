@@ -25,8 +25,14 @@
 
     <main class="flex-grow max-w-6xl w-full mx-auto px-4 py-8">
       
-      <div class="flex flex-wrap gap-2 justify-center mb-10 bg-slate-800/50 p-2 rounded-2xl border border-slate-700/50" id="class-tabs">
-        </div>
+      <div class="flex flex-wrap gap-2 justify-center mb-10 bg-slate-800/50 p-2 rounded-2xl border border-slate-700/50">
+        <button id="btn-class9" onclick="switchClass(0)" class="px-5 py-2.5 rounded-xl text-sm font-bold tracking-wide transition-all bg-blue-600 text-white shadow-md shadow-blue-600/30">Class 9</button>
+        <button id="btn-class10" onclick="switchClass(1)" class="px-5 py-2.5 rounded-xl text-sm font-bold tracking-wide transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800">Class 10</button>
+        <button id="btn-class11" onclick="switchClass(2)" class="px-5 py-2.5 rounded-xl text-sm font-bold tracking-wide transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800">Class 11</button>
+        <button id="btn-class12" onclick="switchClass(3)" class="px-5 py-2.5 rounded-xl text-sm font-bold tracking-wide transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800">Class 12</button>
+        <button id="btn-classug" onclick="switchClass(4)" class="px-5 py-2.5 rounded-xl text-sm font-bold tracking-wide transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800">Graduation (UG)</button>
+        <button id="btn-classpg" onclick="switchClass(5)" class="px-5 py-2.5 rounded-xl text-sm font-bold tracking-wide transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800">Post Graduation (PG)</button>
+      </div>
 
       <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
         
@@ -60,12 +66,12 @@
           <p class="mt-0.5 text-slate-500">Quality education resources for every student.</p>
         </div>
         <div class="flex flex-wrap justify-center gap-4 text-slate-300">
-          <a href="tel:+91XXXXXXXXXX" class="flex items-center gap-1.5 hover:text-blue-400 transition-colors bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800">
+          <span class="flex items-center gap-1.5 bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800">
             <i data-lucide="phone" class="w-3.5 h-3.5 text-blue-500"></i> +91 XXXXXXXXXX
-          </a>
-          <a href="mailto:apnamail@gmail.com" class="flex items-center gap-1.5 hover:text-blue-400 transition-colors bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800">
+          </span>
+          <span class="flex items-center gap-1.5 bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800">
             <i data-lucide="mail" class="w-3.5 h-3.5 text-indigo-500"></i> apnamail@gmail.com
-          </a>
+          </span>
         </div>
       </div>
       <div class="pt-4 border-t border-slate-900 text-[11px]">
@@ -74,8 +80,8 @@
     </footer>
 
     <script>
-      // --- APNA DATA YAHAN SE CHANGES KAREIN ---
-      const STUDY_LIBRARY = [
+      // Plain simple JSON data
+      const DATA = [
         {
           className: "Class 9",
           subjects: [
@@ -105,105 +111,101 @@
         { className: "Post Graduation (PG)", subjects: [] }
       ];
 
-      let activeClassIndex = 0;
-      let activeSubjectIndex = 0;
+      let currentClassIdx = 0;
+      let currentSubIdx = 0;
 
-      // Render Class Tabs Buttons
-      function renderClassTabs() {
-        const tabsContainer = document.getElementById('class-tabs');
-        tabsContainer.innerHTML = '';
+      const classBtnIds = ["btn-class9", "btn-class10", "btn-class11", "btn-class12", "btn-classug", "btn-classpg"];
+
+      function switchClass(index) {
+        currentClassIdx = index;
+        currentSubIdx = 0;
         
-        STUDY_LIBRARY.forEach((item, index) => {
-          const btn = document.createElement('button');
-          btn.className = `px-5 py-2.5 rounded-xl text-sm font-bold tracking-wide transition-all cursor-pointer ${
-            activeClassIndex === index
-              ? 'bg-blue-600 text-white shadow-md shadow-blue-600/30'
-              : 'bg-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-800'
-          }`;
-          btn.innerText = item.className;
-          btn.onclick = () => {
-            activeClassIndex = index;
-            activeSubjectIndex = 0;
-            renderClassTabs();
-            renderSubjects();
-          };
-          tabsContainer.appendChild(btn);
+        // Update tab styles
+        classBtnIds.forEach((id, idx) => {
+          const btn = document.getElementById(id);
+          if (btn) {
+            if (idx === index) {
+              btn.className = "px-5 py-2.5 rounded-xl text-sm font-bold tracking-wide transition-all bg-blue-600 text-white shadow-md shadow-blue-600/30";
+            } else {
+              btn.className = "px-5 py-2.5 rounded-xl text-sm font-bold tracking-wide transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800";
+            }
+          }
         });
+
+        renderSidebarAndContent();
       }
 
-      // Render Subjects List sidebar
-      function renderSubjects() {
-        const subjectContainer = document.getElementById('subject-list');
-        subjectContainer.innerHTML = '';
-        
-        const currentSubjects = STUDY_LIBRARY[activeClassIndex].subjects;
-        
-        if (currentSubjects.length === 0) {
-          subjectContainer.innerHTML = '<p class="text-xs text-slate-500 italic p-2">Syllabus update ho raha hai...</p>';
-          document.getElementById('current-subject-title').innerText = 'No Materials';
-          document.getElementById('resource-grid').innerHTML = '';
+      function switchSubject(index) {
+        currentSubIdx = index;
+        renderSidebarAndContent();
+      }
+
+      function renderSidebarAndContent() {
+        const subList = document.getElementById("subject-list");
+        const resGrid = document.getElementById("resource-grid");
+        const titleEl = document.getElementById("current-subject-title");
+
+        const subjects = DATA[currentClassIdx].subjects;
+
+        if (!subjects || subjects.length === 0) {
+          subList.innerHTML = '<p class="text-xs text-slate-500 italic p-2">Syllabus update ho raha hai...</p>';
+          titleEl.innerText = "No Materials Available";
+          resGrid.innerHTML = '<div class="col-span-2 text-center text-slate-500 py-8">Is class ke liye jaldi hi books aur papers jode jayenge.</div>';
           return;
         }
 
-        currentSubjects.forEach((sub, index) => {
-          const btn = document.createElement('button');
-          btn.className = `w-full text-left px-3 py-2.5 rounded-xl text-xs md:text-sm font-medium transition-all flex items-center gap-2 cursor-pointer ${
-            activeSubjectIndex === index
-              ? 'bg-slate-700 text-blue-400 font-bold border-l-4 border-blue-500 pl-2'
-              : 'text-slate-300 hover:bg-slate-800/60'
-          }`;
-          btn.innerHTML = `<i data-lucide="book-open" class="w-4 h-4 opacity-70"></i> <span class="truncate">${sub.name}</span>`;
-          btn.onclick = () => {
-            activeSubjectIndex = index;
-            renderSubjects();
-          };
-          subjectContainer.appendChild(btn);
-        });
-
-        // Current Subject Content Update
-        const activeSubject = currentSubjects[activeSubjectIndex];
-        document.getElementById('current-subject-title').innerText = activeSubject.name;
-        renderResources(activeSubject.resources);
-        lucide.createIcons(); // Refresh icons
-      }
-
-      // Render PDF Material Cards
-      function renderResources(resources) {
-        const grid = document.getElementById('resource-grid');
-        grid.innerHTML = '';
-
-        if (resources.length === 0) {
-          grid.innerHTML = '<div class="col-span-2 text-center text-slate-500 py-8">Is subject ke liye jaldi hi PDFs jodi jayengi.</div>';
-          return;
-        }
-
-        resources.forEach(res => {
-          const card = document.createElement('div');
-          card.className = "bg-slate-800/60 border border-slate-700/60 p-5 rounded-2xl flex flex-col justify-between shadow-sm group";
+        // Render sidebar buttons
+        let sidebarHtml = "";
+        subjects.forEach((sub, idx) => {
+          const activeClass = (idx === currentSubIdx) 
+            ? "bg-slate-700 text-blue-400 font-bold border-l-4 border-blue-500 pl-2" 
+            : "text-slate-300 hover:bg-slate-800/60";
           
-          card.innerHTML = `
-            <div>
-              <div class="flex items-center justify-between mb-3">
-                <span class="text-[10px] font-extrabold px-2.5 py-1 rounded-md uppercase ${
-                  res.type === 'Book' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
-                }">${res.type}</span>
-                <span class="text-xs font-bold text-emerald-400 bg-emerald-500/5 px-2 py-0.5 rounded-full border border-emerald-500/10">${res.price === 0 ? 'FREE' : '₹' + res.price}</span>
+          sidebarHtml += `
+            <button onclick="switchSubject(${idx})" class="w-full text-left px-3 py-2.5 rounded-xl text-xs md:text-sm font-medium transition-all flex items-center gap-2 cursor-pointer ${activeClass}">
+              <i data-lucide="book-open" class="w-4 h-4 opacity-70"></i>
+              <span class="truncate">${sub.name}</span>
+            </button>
+          `;
+        });
+        subList.innerHTML = sidebarHtml;
+
+        // Render Cards
+        const activeSub = subjects[currentSubIdx];
+        titleEl.innerText = activeSub.name;
+
+        let cardsHtml = "";
+        if (!activeSub.resources || activeSub.resources.length === 0) {
+          resGrid.innerHTML = '<div class="col-span-2 text-center text-slate-500 py-8">Is subject ke liye jaldi hi PDFs jodi jayengi.</div>';
+          lucide.createIcons();
+          return;
+        }
+
+        activeSub.resources.forEach(res => {
+          const tagClass = res.type === 'Book' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-amber-500/10 text-amber-400 border border-amber-500/20';
+          cardsHtml += `
+            <div class="bg-slate-800/60 border border-slate-700/60 p-5 rounded-2xl flex flex-col justify-between shadow-sm group">
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <span class="text-[10px] font-extrabold px-2.5 py-1 rounded-md uppercase ${tagClass}">${res.type}</span>
+                  <span class="text-xs font-bold text-emerald-400 bg-emerald-500/5 px-2 py-0.5 rounded-full border border-emerald-500/10">FREE</span>
+                </div>
+                <h4 class="text-sm md:text-base font-semibold text-slate-100">${res.title}</h4>
               </div>
-              <h4 class="text-sm md:text-base font-semibold text-slate-100">${res.title}</h4>
-            </div>
-            <div class="mt-5 pt-3 border-t border-slate-700/40 flex items-center justify-end">
-              <a href="${res.pdfUrl}" download class="inline-flex items-center gap-2 text-xs font-bold bg-slate-700 hover:bg-blue-600 text-white px-4 py-2 rounded-xl transition-all cursor-pointer">
-                <i data-lucide="download" class="w-3.5 h-3.5"></i> Download PDF
-              </a>
+              <div class="mt-5 pt-3 border-t border-slate-700/40 flex items-center justify-end">
+                <a href="${res.pdfUrl}" download class="inline-flex items-center gap-2 text-xs font-bold bg-slate-700 hover:bg-blue-600 text-white px-4 py-2 rounded-xl transition-all cursor-pointer">
+                  <i data-lucide="download" class="w-3.5 h-3.5"></i> Download PDF
+                </a>
+              </div>
             </div>
           `;
-          grid.appendChild(card);
         });
+        resGrid.innerHTML = cardsHtml;
+        lucide.createIcons();
       }
 
-      // First time initialization
-      renderClassTabs();
-      renderSubjects();
+      // Initial load
+      renderSidebarAndContent();
     </script>
   </body>
 </html>
