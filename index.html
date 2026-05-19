@@ -18,15 +18,15 @@
           Complete Educational Library
         </h1>
         <p class="text-blue-100/80 mt-3 text-sm md:text-base max-w-xl mx-auto font-light">
-          Class 9th se lekar Post Graduation (PG) tak ke saare Guess Papers, Books aur PYQs ek hi jagah par download karein.
+          Apni Class, Material Ka Type aur Subject chun kar direct PDF download karein.
         </p>
       </div>
     </header>
 
     <main class="flex-grow max-w-6xl w-full mx-auto px-4 py-8">
       
-      <div class="flex flex-wrap gap-2 justify-center mb-10 bg-slate-800/50 p-2 rounded-2xl border border-slate-700/50">
-        <button id="btn-class9" onclick="switchClass(0)" class="px-5 py-2.5 rounded-xl text-sm font-bold tracking-wide transition-all bg-blue-600 text-white shadow-md shadow-blue-600/30">Class 9</button>
+      <div class="flex flex-wrap gap-2 justify-center mb-6 bg-slate-800/50 p-2 rounded-2xl border border-slate-700/50">
+        <button id="btn-class9" onclick="switchClass(0)" class="px-5 py-2.5 rounded-xl text-sm font-bold tracking-wide transition-all bg-blue-600 text-white shadow-md">Class 9</button>
         <button id="btn-class10" onclick="switchClass(1)" class="px-5 py-2.5 rounded-xl text-sm font-bold tracking-wide transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800">Class 10</button>
         <button id="btn-class11" onclick="switchClass(2)" class="px-5 py-2.5 rounded-xl text-sm font-bold tracking-wide transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800">Class 11</button>
         <button id="btn-class12" onclick="switchClass(3)" class="px-5 py-2.5 rounded-xl text-sm font-bold tracking-wide transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800">Class 12</button>
@@ -34,12 +34,28 @@
         <button id="btn-classpg" onclick="switchClass(5)" class="px-5 py-2.5 rounded-xl text-sm font-bold tracking-wide transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800">Post Graduation (PG)</button>
       </div>
 
+      <div class="mb-8 bg-slate-800/30 p-4 rounded-2xl border border-slate-800">
+        <h3 class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3 text-center">Kya Study Material Chahiye?</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <button id="type-Book" onclick="switchType('Book')" class="flex items-center justify-center gap-2 p-3 rounded-xl font-bold text-sm bg-blue-600 text-white shadow-md transition-all cursor-pointer">
+            <i data-lucide="book" class="w-4 h-4"></i> Text Books
+          </button>
+          <button id="type-MCQ" onclick="switchType('MCQ')" class="flex items-center justify-center gap-2 p-3 rounded-xl font-bold text-sm bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white transition-all cursor-pointer">
+            <i data-lucide="help-circle" class="w-4 h-4"></i> MCQ Questions
+          </button>
+          <button id="type-Notes" onclick="switchType('Notes')" class="flex items-center justify-center gap-2 p-3 rounded-xl font-bold text-sm bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white transition-all cursor-pointer">
+            <i data-lucide="file-text" class="w-4 h-4"></i> Short & Long Qus
+          </button>
+          <button id="type-PYQ" onclick="switchType('PYQ')" class="flex items-center justify-center gap-2 p-3 rounded-xl font-bold text-sm bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white transition-all cursor-pointer">
+            <i data-lucide="award" class="w-4 h-4"></i> PYQ Papers
+          </button>
+        </div>
+      </div>
+
       <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
         
         <div class="md:col-span-1 bg-slate-800/40 border border-slate-700/50 rounded-2xl p-4 h-fit">
-          <h3 class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4 px-2">
-            Available Subjects
-          </h3>
+          <h3 class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4 px-2">Available Subjects</h3>
           <div class="flex flex-col gap-1.5" id="subject-list">
             </div>
         </div>
@@ -49,7 +65,7 @@
             <h2 class="text-xl md:text-2xl font-bold text-white flex items-center gap-2" id="current-subject-title">
               Select a Subject
             </h2>
-            <p class="text-xs text-slate-400 mt-1">Latest syllabus aur resources niche se direct download karein.</p>
+            <p class="text-xs text-slate-400 mt-1" id="current-type-desc">Latest resources niche se direct download karein.</p>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="resource-grid">
@@ -80,26 +96,39 @@
     </footer>
 
     <script>
-      // Plain simple JSON data
+      // MASTER DATA SYSTEM (Abhi isme humne sab categorized kar diya hai)
       const DATA = [
         {
           className: "Class 9",
           subjects: [
             {
               name: "Science (Session 2026-2027)",
-              resources: [
-                { id: "c9-sc-ch4", title: "Chapter 4: Describing motion around us", type: "Book", pdfUrl: "/documents/class9-science-ch4.pdf", price: 0 },
-                { id: "c9-sc-ch5", title: "Chapter 5: Exploring mixture", type: "Book", pdfUrl: "/documents/class9-science-ch5.pdf", price: 0 },
-                { id: "c9-sc-ch6", title: "Chapter 6: How force affect motion", type: "Book", pdfUrl: "/documents/class9-science-ch6.pdf", price: 0 },
-                { id: "c9-sc-ch7", title: "Chapter 7: Work energy and simple machine", type: "Book", pdfUrl: "/documents/class9-science-ch7.pdf", price: 0 },
-                { id: "c9-sc-ch8", title: "Chapter 8: Journey inside the atom", type: "Book", pdfUrl: "/documents/class9-science-ch8.pdf", price: 0 },
-                { id: "c9-sc-ch9", title: "Chapter 9: Atomic foundation of atom", type: "Book", pdfUrl: "/documents/class9-science-ch9.pdf", price: 0 }
+              // Har category ki PDFs ab alag-alag group mein save hain!
+              Book: [
+                { id: "c9-sc-ch4", title: "Chapter 4: Describing motion around us (Textbook)", pdfUrl: "/documents/class9-science-ch4.pdf" },
+                { id: "c9-sc-ch5", title: "Chapter 5: Exploring mixture (Textbook)", pdfUrl: "/documents/class9-science-ch5.pdf" },
+                { id: "c9-sc-ch6", title: "Chapter 6: How force affect motion (Textbook)", pdfUrl: "/documents/class9-science-ch6.pdf" },
+                { id: "c9-sc-ch7", title: "Chapter 7: Work energy and simple machine (Textbook)", pdfUrl: "/documents/class9-science-ch7.pdf" },
+                { id: "c9-sc-ch8", title: "Chapter 8: Journey inside the atom (Textbook)", pdfUrl: "/documents/class9-science-ch8.pdf" },
+                { id: "c9-sc-ch9", title: "Chapter 9: Atomic foundation of atom (Textbook)", pdfUrl: "/documents/class9-science-ch9.pdf" }
+              ],
+              MCQ: [
+                { id: "c9-sc-ch4-mcq", title: "Chapter 4: Motion Most Important MCQs", pdfUrl: "/documents/class9-science-ch4-mcq.pdf" }
+              ],
+              Notes: [
+                { id: "c9-sc-ch4-notes", title: "Chapter 4: Motion Short & Long Question Answers", pdfUrl: "/documents/class9-science-ch4-questions.pdf" }
+              ],
+              PYQ: [
+                { id: "c9-sc-pyq", title: "Class 9 Science Board Annual Exam PYQ Paper", pdfUrl: "/documents/class9-science-pyq.pdf" }
               ]
             },
             {
               name: "Mathematics",
-              resources: [
-                { id: "c9-math-pyq", title: "Class 9 Maths Previous Year Question Paper", type: "PYQ", pdfUrl: "/documents/class9-math-pyq.pdf", price: 0 }
+              Book: [],
+              MCQ: [],
+              Notes: [],
+              PYQ: [
+                { id: "c9-math-pyq", title: "Class 9 Maths Previous Year Question Paper", pdfUrl: "/documents/class9-math-pyq.pdf" }
               ]
             }
           ]
@@ -112,26 +141,40 @@
       ];
 
       let currentClassIdx = 0;
+      let selectedType = "Book"; // Default pehle Text Books dikhega
       let currentSubIdx = 0;
 
       const classBtnIds = ["btn-class9", "btn-class10", "btn-class11", "btn-class12", "btn-classug", "btn-classpg"];
+      const typeBtnIds = ["type-Book", "type-MCQ", "type-Notes", "type-PYQ"];
 
       function switchClass(index) {
         currentClassIdx = index;
         currentSubIdx = 0;
         
-        // Update tab styles
         classBtnIds.forEach((id, idx) => {
           const btn = document.getElementById(id);
           if (btn) {
-            if (idx === index) {
-              btn.className = "px-5 py-2.5 rounded-xl text-sm font-bold tracking-wide transition-all bg-blue-600 text-white shadow-md shadow-blue-600/30";
+            btn.className = (idx === index)
+              ? "px-5 py-2.5 rounded-xl text-sm font-bold tracking-wide transition-all bg-blue-600 text-white shadow-md"
+              : "px-5 py-2.5 rounded-xl text-sm font-bold tracking-wide transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800";
+          }
+        });
+        renderSidebarAndContent();
+      }
+
+      function switchType(type) {
+        selectedType = type;
+        
+        typeBtnIds.forEach(id => {
+          const btn = document.getElementById(id);
+          if (btn) {
+            if (id === `type-${type}`) {
+              btn.className = "flex items-center justify-center gap-2 p-3 rounded-xl font-bold text-sm bg-blue-600 text-white shadow-md transition-all cursor-pointer";
             } else {
-              btn.className = "px-5 py-2.5 rounded-xl text-sm font-bold tracking-wide transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800";
+              btn.className = "flex items-center justify-center gap-2 p-3 rounded-xl font-bold text-sm bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white transition-all cursor-pointer";
             }
           }
         });
-
         renderSidebarAndContent();
       }
 
@@ -144,13 +187,18 @@
         const subList = document.getElementById("subject-list");
         const resGrid = document.getElementById("resource-grid");
         const titleEl = document.getElementById("current-subject-title");
+        const descEl = document.getElementById("current-type-desc");
 
         const subjects = DATA[currentClassIdx].subjects;
 
+        // Type labels descriptions for headings
+        const typeLabels = { Book: "Text Books", MCQ: "MCQ Practice Sets", Notes: "Short & Long Questions", PYQ: "Previous Year Papers" };
+        descEl.innerText = `Latest ${typeLabels[selectedType]} list for easy download.`;
+
         if (!subjects || subjects.length === 0) {
           subList.innerHTML = '<p class="text-xs text-slate-500 italic p-2">Syllabus update ho raha hai...</p>';
-          titleEl.innerText = "No Materials Available";
-          resGrid.innerHTML = '<div class="col-span-2 text-center text-slate-500 py-8">Is class ke liye jaldi hi books aur papers jode jayenge.</div>';
+          titleEl.innerText = "No Subjects Available";
+          resGrid.innerHTML = '<div class="col-span-2 text-center text-slate-500 py-8">Is class ke liye jaldi hi resources jode jayenge.</div>';
           return;
         }
 
@@ -170,24 +218,30 @@
         });
         subList.innerHTML = sidebarHtml;
 
-        // Render Cards
+        // Fetch resources for selected type (Book, MCQ, Notes, PYQ)
         const activeSub = subjects[currentSubIdx];
-        titleEl.innerText = activeSub.name;
+        titleEl.innerText = `${activeSub.name} - ${typeLabels[selectedType]}`;
+
+        const resources = activeSub[selectedType] || [];
 
         let cardsHtml = "";
-        if (!activeSub.resources || activeSub.resources.length === 0) {
-          resGrid.innerHTML = '<div class="col-span-2 text-center text-slate-500 py-8">Is subject ke liye jaldi hi PDFs jodi jayengi.</div>';
+        if (resources.length === 0) {
+          resGrid.innerHTML = `<div class="col-span-2 text-center text-slate-500 py-12 bg-slate-800/20 border border-dashed border-slate-700 rounded-2xl">Is subject ke ${typeLabels[selectedType]} abhi jode ja rahe hain.</div>`;
           lucide.createIcons();
           return;
         }
 
-        activeSub.resources.forEach(res => {
-          const tagClass = res.type === 'Book' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-amber-500/10 text-amber-400 border border-amber-500/20';
+        resources.forEach(res => {
+          let badgeColor = selectedType === 'Book' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' :
+                           selectedType === 'MCQ' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' :
+                           selectedType === 'Notes' ? 'bg-purple-500/10 text-purple-400 border border-purple-500/20' : 
+                           'bg-rose-500/10 text-rose-400 border border-rose-500/20';
+
           cardsHtml += `
             <div class="bg-slate-800/60 border border-slate-700/60 p-5 rounded-2xl flex flex-col justify-between shadow-sm group">
               <div>
                 <div class="flex items-center justify-between mb-3">
-                  <span class="text-[10px] font-extrabold px-2.5 py-1 rounded-md uppercase ${tagClass}">${res.type}</span>
+                  <span class="text-[10px] font-extrabold px-2.5 py-1 rounded-md uppercase ${badgeColor}">${selectedType}</span>
                   <span class="text-xs font-bold text-emerald-400 bg-emerald-500/5 px-2 py-0.5 rounded-full border border-emerald-500/10">FREE</span>
                 </div>
                 <h4 class="text-sm md:text-base font-semibold text-slate-100">${res.title}</h4>
